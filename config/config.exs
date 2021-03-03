@@ -18,6 +18,10 @@ config :rockelivery, RockeliveryWeb.Endpoint,
   pubsub_server: Rockelivery.PubSub,
   live_view: [signing_salt: "fvJ3gsOV"]
 
+config :rockelivery, Rockelivery.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
