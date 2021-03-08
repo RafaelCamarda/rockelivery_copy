@@ -19,9 +19,9 @@ defmodule Rockelivery.Users.CreateTest do
     test "when there are invalid params, returns an error" do
       params =
         build(:user_params, %{
-          cep: "1234567",
-          cpf: "123456789",
-          password: "12345"
+          "cep" => "1234567",
+          "cpf" => "123456789",
+          "password" => "12345"
         })
 
       response = Create.call(params)
