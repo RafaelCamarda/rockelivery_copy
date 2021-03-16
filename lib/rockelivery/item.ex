@@ -3,6 +3,7 @@ defmodule Rockelivery.Item do
   import Ecto.Changeset
 
   alias Ecto.Enum
+  alias Rockelivery.Order
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
@@ -15,6 +16,8 @@ defmodule Rockelivery.Item do
     field :description, :string
     field :price, :decimal
     field :photo, :string
+
+    many_to_many :orders, Order, join_through: "order_items"
 
     timestamps()
   end
