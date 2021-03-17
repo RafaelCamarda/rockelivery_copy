@@ -12,10 +12,10 @@ defmodule Rockelivery.Order do
 
   @derive {Jason.Encoder, only: @required_params ++ [:id]}
 
-  schema "items" do
+  schema "orders" do
     field :address, :string
     field :comments, :string
-    field :payment_method, Enum, values: [:food, :drink, :desert]
+    field :payment_method, Enum, values: [:money, :credit_card, :debit_card]
 
     many_to_many :items, Item, join_through: "order_items"
     belongs_to :user, User
@@ -24,11 +24,13 @@ defmodule Rockelivery.Order do
   end
 
   def changeset(changeset \\ %__MODULE__{}, params, items) do
+    params = Map.delete(params, "items")
+
     changeset
     |> cast(params, @required_params)
-    |> put_assoc(:items, items)
     |> validate_required(@required_params)
-    |> validate_length(:description, min: 6)
-    |> validate_number(:price, greater_than: 0)
+    |> put_assoc(:items, items)
+    |> validate_length(:address, min: 10)
+    |> validate_length(:comments, min: 6)
   end
 end
