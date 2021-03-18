@@ -9,14 +9,14 @@ defmodule Rockelivery.Orders.Create do
     |> handle_items(params)
   end
 
-  defp fetch_items(%{"items" => items}) do
-    items_ids = Enum.map(items, fn item -> item["id"] end)
+  defp fetch_items(%{"items" => items_params}) do
+    items_ids = Enum.map(items_params, fn item -> item["id"] end)
 
     query = from item in Item, where: item.id in ^items_ids
 
     query
     |> Repo.all()
-    |> validate_and_multiply_items(items, items_ids)
+    |> validate_and_multiply_items(items_params, items_ids)
   end
 
   defp validate_and_multiply_items(items, items_params, items_ids) do
