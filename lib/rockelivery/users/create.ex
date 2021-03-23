@@ -4,8 +4,9 @@ defmodule Rockelivery.Users.Create do
 
   def call(%{"cep" => cep} = params) do
     with {:ok, %User{} = user} <- User.build(params),
-         {:ok, _cep_info} <- Client.get_cep_info(cep) do
-      Repo.insert(user)
+         {:ok, _cep_info} <- Client.get_cep_info(cep),
+         {:ok, %User{}} = user <- create_user(params) do
+      user
     else
       {:error, %Error{}} = error ->
         error
@@ -13,5 +14,11 @@ defmodule Rockelivery.Users.Create do
       {:error, result} ->
         {:error, Error.build(:bad_request, result)}
     end
+  end
+
+  defp create_user(params) do
+    params
+    |> User.changeset()
+    |> Repo.insert()
   end
 end
