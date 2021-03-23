@@ -3,8 +3,10 @@ defmodule Rockelivery.ViaCep.ClientTest do
 
   alias Plug.Conn
 
-  alias Rockelivery.ViaCep.Client
   alias Rockelivery.Error
+  alias Rockelivery.ViaCep.Client
+
+  import Rockelivery.Factory
 
   describe "get_cep_info/1" do
     setup do
@@ -36,20 +38,7 @@ defmodule Rockelivery.ViaCep.ClientTest do
         |> Conn.resp(200, body)
       end)
 
-      expected_response =
-        {:ok,
-         %{
-           "bairro" => "Sé",
-           "cep" => "01001-000",
-           "complemento" => "lado ímpar",
-           "ddd" => "11",
-           "gia" => "1004",
-           "ibge" => "3550308",
-           "localidade" => "São Paulo",
-           "logradouro" => "Praça da Sé",
-           "siafi" => "7107",
-           "uf" => "SP"
-         }}
+      expected_response = {:ok, build(:cep_info)}
 
       response = Client.get_cep_info(url, cep)
 

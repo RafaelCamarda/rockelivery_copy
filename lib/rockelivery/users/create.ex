@@ -4,7 +4,7 @@ defmodule Rockelivery.Users.Create do
 
   def call(%{"cep" => cep} = params) do
     with {:ok, %User{} = _user} <- User.build(params),
-         {:ok, _cep_info} <- Client.get_cep_info(cep),
+         {:ok, _cep_info} <- client().get_cep_info(cep),
          {:ok, %User{}} = user <- create_user(params) do
       user
     else
@@ -14,6 +14,12 @@ defmodule Rockelivery.Users.Create do
       {:error, result} ->
         {:error, Error.build(:bad_request, result)}
     end
+  end
+
+  defp client do
+    :rockelivery
+    |> Application.fetch_env!(__MODULE__)
+    |> Keyword.get(:via_cep_adapter)
   end
 
   defp create_user(params) do
