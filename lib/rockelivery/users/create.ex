@@ -1,6 +1,5 @@
 defmodule Rockelivery.Users.Create do
   alias Rockelivery.{Error, Repo, User}
-  alias Rockelivery.ViaCep.Client
 
   def call(%{"cep" => cep} = params) do
     with {:ok, %User{} = _user} <- User.build(params),
