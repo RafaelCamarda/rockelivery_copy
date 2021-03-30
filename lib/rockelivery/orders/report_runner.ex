@@ -26,6 +26,6 @@ defmodule Rockelivery.Orders.ReportRunner do
   end
 
   defp schedule_report_generation do
-    Process.send_after(self(), :generate, 1000 * 5)
+    Process.send_after(self(), :generate, 1000 * 60 * 60 * 60)
   end
 end
