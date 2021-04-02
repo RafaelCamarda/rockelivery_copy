@@ -10,6 +10,16 @@ use Mix.Config
 config :rockelivery,
   ecto_repos: [Rockelivery.Repo]
 
+config :rockelivery, Rockelivery.Users.Create, via_cep_adapter: Rockelivery.ViaCep.Client
+
+config :rockelivery, RockeliveryWeb.Auth.Guardian,
+  issuer: "rockelivery",
+  secret_key: "y3LnWpovdwCkz57+XA+rFs6euiuObK3Kw2MclJ8dxExUqgY+jvnnLca0avjku2aS"
+
+config :rockelivery, RockeliveryWeb.Auth.Pipeline,
+  module: RockeliveryWeb.Auth.Guardian,
+  error_handler: RockeliveryWeb.Auth.ErrorHandler
+
 # Configures the endpoint
 config :rockelivery, RockeliveryWeb.Endpoint,
   url: [host: "localhost"],
@@ -17,6 +27,10 @@ config :rockelivery, RockeliveryWeb.Endpoint,
   render_errors: [view: RockeliveryWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: Rockelivery.PubSub,
   live_view: [signing_salt: "fvJ3gsOV"]
+
+config :rockelivery, Rockelivery.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
 
 # Configures Elixir's Logger
 config :logger, :console,
