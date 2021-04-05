@@ -12,6 +12,7 @@ config :rockelivery, Rockelivery.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+
 config :rockelivery, Rockelivery.Users.Create, via_cep_adapter: Rockelivery.ViaCep.ClientMock
 
 # We don't run a server during test. If one is required,
