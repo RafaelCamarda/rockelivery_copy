@@ -12,6 +12,7 @@
 
 alias Rockelivery.{Item, Order, Repo, User}
 
+IO.puts("======Inserting user...======")
 user = %User{
   age: 27,
   address: "RUa das banananeiras, 15",
@@ -19,11 +20,12 @@ user = %User{
   cpf: "98765432101",
   email: "rafaelbanana@frutas.com",
   password: "123456",
-  name: Rafael
+  name: "Rafael"
 }
 
 %User{id: user_id} = Repo.insert!(user)
 
+IO.puts("======Inserting items...======")
 item1 = %Item{
   category: :food,
   description: "banana frita",
@@ -41,6 +43,7 @@ item2 = %Item{
 Repo.insert!(item1)
 Repo.insert!(item2)
 
+IO.puts("======Inserting orders...======")
 order = %Order{
   user_id: user_id,
   items: [item1, item1, item2],
@@ -50,3 +53,4 @@ order = %Order{
 }
 
 Repo.insert!(order)
+IO.puts("======DONE!======")
