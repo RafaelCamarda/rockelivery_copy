@@ -36,7 +36,7 @@ defmodule Rockelivery.Users.CreateTest do
       {:error, %Error{result: changeset}} = response
 
       expected_errors = %{
-        cep: ["should be 8 character(s)"],
+        cep: ["should be 9 character(s)"],
         cpf: ["should be 11 character(s)"],
         password: ["should be at least 6 character(s)"]
       }
